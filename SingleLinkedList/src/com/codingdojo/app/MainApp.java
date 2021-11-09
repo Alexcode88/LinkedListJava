@@ -1,10 +1,33 @@
 package com.codingdojo.app;
 
+import java.util.HashMap;
+
 import com.codingdojo.datastructure.*;
 
 public class MainApp {
 	
 	public static void main( String args[] ) {
+		
+		LinkedList list = new LinkedList();
+		
+		list.insert( 1, null );
+		list.insert( 2, null );
+		list.insert( 3, null );
+		list.insert( 4, null );
+		list.insert( 5, null );
+		Node current = list.find( 3 );
+		list.insert( 6, current );
+		boolean result = isCycled( list );
+		
+		if( result == true ) {
+			System.out.println( "The list is cycled!" );
+		}
+		else {
+			System.out.println( "The list is not cycled." );
+		}
+		/*
+		Solution for finding intersection in between 2 linked lists 
+		 
 		LinkedList list1 = new LinkedList();
 		LinkedList list2 = new LinkedList();
 		
@@ -37,7 +60,26 @@ public class MainApp {
 		else {
 			System.out.println( "The lists intersect at Node with value: " + intersection.getValue() );
 		}
+		*/
 		
+	}
+	
+	public static boolean isCycled( LinkedList list ) {
+		HashMap<Integer, Integer> hashTable = new HashMap<Integer, Integer>();
+		
+		Node current = list.getHead();
+		while( current.getNext() != null ) {
+			System.out.println( "Addres: " + current.hashCode() + " Value: " + current.getValue() );
+			if( hashTable.get( current.hashCode()) == null ) {
+				hashTable.put( current.hashCode(), current.getValue() );
+				current = current.getNext();
+			}
+			else {
+				return true;
+			}
+		}
+		
+		return false;
 	}
 	
 	public static Node findIntersection( LinkedList list1, LinkedList list2 ) {
@@ -60,7 +102,7 @@ public class MainApp {
 		
 		while( currentList1 != null ) {
 			//System.out.println( currentList1.hashCode() );
-			if( currentList1.hashCode()== currentList2.hashCode() ) {
+			if( currentList1.hashCode() == currentList2.hashCode() ) {
 				return currentList1;
 			}
 			currentList1 = currentList1.getNext();

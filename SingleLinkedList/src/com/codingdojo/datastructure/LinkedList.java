@@ -37,6 +37,23 @@ public class LinkedList {
 		return current;
 	}
 	
+	public Node find( int val ) {
+		Node current = this.head;
+		
+		if( current == null ) {
+			return null;
+		}
+		
+		while( current.getNext() != null ) {
+			if( current.getValue() == val ) {
+				return current;
+			}
+			current = current.getNext();
+		}
+		
+		return null;
+	}
+	
 	public void print() {
 		Node current = this.head;
 		
